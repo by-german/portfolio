@@ -6,22 +6,22 @@ import MailIcon from "../icons/MailIcon.astro";
 import { Target } from "../models/enums.ts";
 import Card from "./ui/Card.astro";
 
-const {id} = Astro.props;
+const { id } = Astro.props;
 ---
 
 <Card>
   <h1>Hi, I'm Brayan Germán</h1>
 
-  <p>
-    Passionate about software development, I have demonstrated ease in mastering
-    new knowledge and technologies effortlessly, as well as my motivation to
-    apply them in projects 🚀.
+  <p class="presentation">
+    Passionate about software development and creativity. I love applying my
+    knowledge to build applications that contribute to the community. 💜
+  </p>
+  <p class="presentation">
+    Every project is an opportunity to transform people's lives. 🚀
   </p>
 
   <div class="social">
-    <SocialPill
-      href="https://www.linkedin.com/in/brayan-german/"
-    >
+    <SocialPill href="https://www.linkedin.com/in/brayan-german/">
       <LinkedInIcon slot="icon" width="20" height="20" color="white" />
       <p slot="text">LinkedIn</p>
     </SocialPill>
@@ -39,8 +39,6 @@ const {id} = Astro.props;
   </div>
 </Card>
 
-
-
 <style>
   h1 {
     font-size: 26px;
@@ -53,5 +51,10 @@ const {id} = Astro.props;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 0px 32px;
+  }
+
+  .presentation {
+    /* pretty text */
+    text-wrap: pretty;
   }
 </style>
