@@ -1,56 +1,17 @@
 ---
 import ProjectItem from "./ProjectItem.astro";
+import { supabase } from "../lib/supabase";
+import type { Project } from "../models/project";
 
-const projects = [
-	{
-		title: "vemotion",
-		description:
-			"A desktop application built with Python and Flet that brings 2D VTuber avatars to life. It combines MediaPipe for facial emotion tracking and audio analysis for real-time lip-syncing.",
-		image: "images/projects/vemotion.png",
-		tags: ["Python", "Flet", "MediaPipe", "uv"],
-		href: "https://vemotion.bygerman.com/",
-	},
-	{
-		title: "Frikievents",
-		description:
-			"A web application that allows users to create and manage events.",
-		image: "images/projects/frikievents.png",
-		tags: ["Nextjs", "NestJs", "Firebase", "TailwindCSS", "React"],
-		href: "https://frikievents.com/",
-	},
-	{
-		title: "StreamKeep",
-		description: "A Simple Way to Save the Videos You Like.",
-		image: "/images/projects/streamkeep.png",
-		tags: ["Nextjs", "Python", "Vite", "TailwindCSS", "React", "Firebase", "Desktop App", "Chrome extension" ],
-		href: "https://streamkeep.bygerman.com/",
-	},
-	{
-		title: "DOM Key - Chrome Extension",
-		description:
-			"A Chrome extension that allows users assign keyboard shortcuts to DOM elements, enabling quick access and interaction with web pages.",
-		image: "/images/projects/dom-key.png",
-		tags: ["React", "Tailwind", "Chrome Extension"],
-		href: "https://chromewebstore.google.com/detail/dom-key/ahmiimnmeomahnaomobdipgfbkkgochp",
-	},
-	{
-		title: "Vehicle Detection",
-		description:
-			"This project utilizes React along with Custom Vision for vehicle detection in videos. A vehicle detection model has been trained and exported from Custom Vision, which is integrated into the application.",
-		image: "/images/projects/vehicles-detection.png",
-		tags: ["React", "Custom Vision"],
-		href: "https://custom-vision.netlify.app/",
-	},
-	{
-		title: "CollabVR",
-		description:
-			"A virtual reality application that allows users to collaborate in a virtual environment.",
-		image: "/images/projects/collabvr-mdpi.png",
-		tags: ["Angular", "NestJS", "Unity", "Microservices"],
-		href: "https://doi.org/10.3390/computers13020040",
-	},
-	// TOOD: Music App, Pomodoro App
-];
+const { data, error } = await supabase
+	.from("projects")
+	.select("*");
+
+if (error) {
+	console.error(error);
+}
+
+const projects: Project[] = data || [];
 
 const { id } = Astro.props;
 ---
