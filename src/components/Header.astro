@@ -63,11 +63,15 @@
 </style>
 
 <script>
+  // Sticky header on scroll 
   const header = document.getElementsByTagName("header")[0];
   const nav = document.getElementsByTagName("nav")[0];
 
   window.addEventListener("scroll", function () {
+    // When the header is sticky
     const headerStateStiky = header.getBoundingClientRect().top == 0;
+    
+    // Resize
     nav.style.flex = headerStateStiky ? "1" : "0";
     nav.style.borderRadius = headerStateStiky ? "0" : "8px";
   });
