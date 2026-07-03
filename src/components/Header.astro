@@ -60,6 +60,12 @@
       font-size: 14px;
     }
   }
+
+  /* Active link styles */
+  nav .container a.active {
+    color: #90f6d7;
+  }
+
 </style>
 
 <script>
@@ -75,4 +81,30 @@
     nav.style.flex = headerStateStiky ? "1" : "0";
     nav.style.borderRadius = headerStateStiky ? "0" : "8px";
   });
+
+
+  // Add active class to nav links on scroll
+  const navLinks = document.querySelectorAll('nav .container a')
+  const sections = document.querySelectorAll('section[id], h1[id]')
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const sectionId = entry.target.id;
+        
+        navLinks.forEach((link => {
+          const linkId = link.getAttribute('href')?.substring(1) || '';
+          
+          // Add or remove active class to nav links
+          link.classList.toggle('active', linkId === sectionId)
+        }))
+      }
+    })
+    
+  }, { rootMargin: '-50% 0px -50% 0px' })
+
+  sections.forEach((section) => {
+    observer.observe(section)
+  })
+
 </script>
