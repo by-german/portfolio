@@ -50,7 +50,7 @@
   }
 
   a:is(:hover, :active) {
-    color: #6bffd3;
+    color: #90f6d7;
   }
 
   /* Styles for screens smaller than 600px */
@@ -60,15 +60,53 @@
       font-size: 14px;
     }
   }
+
+  /* Active link styles */
+  nav .container a.active {
+    color: #90f6d7;
+  }
+
 </style>
 
 <script>
+  // Sticky header on scroll 
   const header = document.getElementsByTagName("header")[0];
   const nav = document.getElementsByTagName("nav")[0];
 
   window.addEventListener("scroll", function () {
+    // When the header is sticky
     const headerStateStiky = header.getBoundingClientRect().top == 0;
+    
+    // Resize
     nav.style.flex = headerStateStiky ? "1" : "0";
     nav.style.borderRadius = headerStateStiky ? "0" : "8px";
   });
+
+
+  // Add active class to nav links on scroll
+  const navLinks = document.querySelectorAll('nav .container a')
+  const sections = document.querySelectorAll('section[id], h1[id]')
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const sectionId = entry.target.id;
+        
+        navLinks.forEach((link => {
+          const linkId = link.getAttribute('href')?.substring(1) || '';
+          
+          // Add or remove active class to nav links
+          link.classList.toggle('active', linkId === sectionId)
+        }))
+      }
+    })
+    
+    // Root margin: 0px (full viewport)
+    // Threshold: 0.5 (50% of the target element is visible)
+  }, { rootMargin: '0px', threshold: 0.5 })
+
+  sections.forEach((section) => {
+    observer.observe(section)
+  })
+
 </script>
