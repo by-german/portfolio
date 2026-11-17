@@ -2,10 +2,12 @@
 import ProjectItem from "./ProjectItem.astro";
 import { supabase } from "../lib/supabase";
 import type { Project } from "../models/project";
+import type { ACTION_ERROR_CODES } from "astro:actions";
 
 const { data, error } = await supabase
 	.from("projects")
-	.select("*");
+	.select("*")
+	.order("created_at", { ascending: false });
 
 if (error) {
 	console.error(error);
